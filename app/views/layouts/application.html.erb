@@ -9,11 +9,39 @@
   </head>
 
   <body>
+    <script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '1293315110729258',
+      cookie     : true,
+      xfbml      : true,
+      version    : 'v2.8'
+    });
+    FB.AppEvents.logPageView();
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+   </script>
+
     <% if user_signed_in? %>
       Logged in as <strong><%= current_user.email%></strong>
       <%= link_to 'Edit profile', edit_user_registration_path %>
-      <%= link_to 'Logoug', destroy_user_session_path, method: :false %>
+      <%= link_to 'Logout', destroy_user_session_path, method: :delete %>
+    <% else %>
+      <%= link_to 'Sign up', new_user_registration_path %>
+      <%= link_to "login", new_user_session_path %>
     <% end %>
+
+    <% flash.each do |name, msg| %>
+      <%= content_tag :div, msg, id: "flash_#{name}" %>
+    <% end %>
+
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
     <%= yield %>
