@@ -36,6 +36,7 @@
     <% else %>
       <%= link_to 'Sign up', new_user_registration_path %>
       <%= link_to "login", new_user_session_path %>
+      <%= link_to "sign in with facebook", user_facebook_omniauth_authorize_path %>
     <% end %>
 
     <% flash.each do |name, msg| %>
